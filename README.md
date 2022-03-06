@@ -1,7 +1,17 @@
 # KeyAuth-JS-Example
 
-- **Uses Non Encrypted API now, 1.0 Encrypted will come after 1.0 Example have been created.**
+## **Example Details**
+```
+KeyAuth API Version: 1.1 - NON Encrypted
+Node-Version: v16.13.1
+NPM-Version: 8.3.1
+Example Creator: mazk#9154 - 697678869167341639
+```
 
+## **When Encrypted Version?**
+```
+Encrypted Version of KeyAuth JS Example [KeyAuth API 1.0], Is coming soon as Developer (me) Finishes it.
+```
 
 ## **How to Install?**
 ```
