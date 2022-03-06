@@ -1,5 +1,6 @@
 import axios from "axios"
 import { stringify } from "querystring"
+import systeminformation from "systeminformation"
 
 var datastore = {
     name: null,
@@ -56,6 +57,10 @@ async function init() {
         error("Application not found")
     }
 
+    if (response === "This program hash does not match, make sure you're using latest version") {
+        error("Please Disable Program Hash, Thanks!")
+    }
+
     var json = response;
 
     if (json.success) {
@@ -94,7 +99,8 @@ async function Login(username, password) {
 
     await Sleep(1500);
 
-    const hwid = "JS EXAMPLE BETA";
+    await getHWID();
+    const hwid = sys.hwid;
 
     const values_to_upload = {
         'type': 'login',
@@ -135,7 +141,8 @@ async function Register(username, password, key) {
 
     await Sleep(1500);
 
-    const hwid = "JS EXAMPLE BETA";
+    await getHWID();
+    const hwid = sys.hwid;
 
     const values_to_upload = {
         'type': 'register',
@@ -175,7 +182,8 @@ async function License(key) {
 
     await Sleep(1500);
 
-    const hwid = "JS EXAMPLE BETA";
+    await getHWID();
+    const hwid = sys.hwid;
 
     const values_to_upload = {
         'type': 'license',
@@ -210,7 +218,8 @@ async function License(key) {
 async function Upgrade(username, key) {
     checkvalues();
 
-    const hwid = "";
+    await getHWID();
+    const hwid = sys.hwid;
 
     const values_to_upload = {
         'type': 'upgrade',
@@ -393,7 +402,8 @@ async function download(fileid) {
 async function log(message) {
     checkinit();
 
-    let pcuser = "lolxd";
+    await getUSER();
+    let pcuser = sys.username;
 
     const values_to_upload = {
         'type': 'log',
@@ -458,7 +468,7 @@ async function checkvalues() {
     }
 }
 
-function error(message) {
+async function error(message) {
     console.log(message);
     return process.exit(0);
 }
@@ -467,6 +477,25 @@ async function checkinit() {
     if (!intialized) {
         error("Please initzalize first")
     }
+}
+
+let sys = {
+    username: null,
+    hwid: null,
+}
+
+async function getHWID() {
+    //Credits to https://github.com/sebhildebrandt/systeminformation
+    await systeminformation.blockDevices((data) => {
+        sys.hwid = data[0].serial;
+    })
+}
+
+async function getUSER() {
+    //Credits to https://github.com/sebhildebrandt/systeminformation
+    await systeminformation.users((data) => {
+        sys.username = data[0].user
+    })
 }
 //#endregion
 
@@ -503,18 +532,4 @@ function Sleep(ms) {
 }
 
 export { Title, Sleep, response, error } //CUSTOM STUFF
-//#endregion
-
-//#region Encryption COMING SOON
-
-function str_to_byte_arr(str) {
-    var bytes = [];
-    for(var i = 0; i < str.length; i++) {
-        var char = str.charCodeAt(i);
-        bytes.push(char >>> 8);
-        bytes.push(char & 0xFF);
-    }
-    return bytes;
-}
-
 //#endregion
