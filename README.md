@@ -35,4 +35,9 @@ Encrypted Version of KeyAuth JS Example [KeyAuth API 1.0], Is coming soon as Dev
 [![](https://i.imgur.com/NVGyLVM.png)](https://streamable.com/bo2m20)
 
 
-## Credits to KeyAuth
+## **Credits** 
+```
+KeyAuth - https://keyauth.win - https://keyauth.win/discord
+Node: https://nodejs.org/en/download/
+SystemInformation: https://www.npmjs.com/package/systeminformation
+```
