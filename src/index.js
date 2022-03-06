@@ -166,12 +166,12 @@ async function loggedin() {
 
     for (var i = 0; i < KeyAuth.user_data.subscriptions.length; i++)
     {
-        console.log(` (${i}) Subscription name: ${KeyAuth.user_data.subscriptions[i].subscription} | Expires at: ${moment.unix(KeyAuth.user_data.subscriptions[i].expiry).format("DD-MM-YYYY - HH:mm:ss")} | Time left in seconds ${KeyAuth.user_data.subscriptions[i].timeleft}`)
+        console.log(` [${i}] Subscription name: ${KeyAuth.user_data.subscriptions[i].subscription} | Expires at: ${moment.unix(KeyAuth.user_data.subscriptions[i].expiry).format("DD-MM-YYYY - HH:mm:ss")} | Time left in seconds ${KeyAuth.user_data.subscriptions[i].timeleft}`)
     }
 
 
     KeyAuth.check();
-    console.log(`Current Session Validation Status: ${KeyAuth.response.message}`);
+    console.log(` Current Session Validation Status: ${KeyAuth.response.message}`);
 
     console.log("\n\n Closing in 10 seconds...")
     await KeyAuth.Sleep(10000);
