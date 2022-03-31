@@ -260,6 +260,33 @@ async function check() {
     load_response_struct(json)
 }
 
+async function checkblacklist() {
+    checkinit();
+
+    await getHWID();
+    const hwid = sys.hwid;
+
+    const values_to_upload = {
+        'type': 'checkblacklist',
+        'hwid': hwid,
+        'sessionid': datastore.sessionid,
+        'name': datastore.name,
+        'ownerid': datastore.ownerid,
+    }
+
+    const parameters = "?" + stringify(values_to_upload);
+
+    var response = await req(parameters);
+    var json = response;
+
+    load_response_struct(json);
+    if (json.success) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 async function setvar(varname, data) {
     checkinit();
 
@@ -499,7 +526,7 @@ async function getUSER() {
 }
 //#endregion
 
-export { api, app_data, user_data, init, Login, Register, License, Upgrade, log, webhook, getvar, setvar, ban, download, variable, check } //KEYAUTH API
+export { api, app_data, user_data, init, Login, Register, License, Upgrade, log, webhook, getvar, setvar, ban, download, variable, check, checkblacklist } //KEYAUTH API
 
 async function req(post_data) {
 
@@ -511,6 +538,10 @@ async function req(post_data) {
         }
     })
     .then((res) => {
+        if (res.status == 429) {
+            error("Rate Limited! - KeyAuth");
+        }
+        
         returndata = res.data;
     }).catch((err) => {
         console.error(err);
