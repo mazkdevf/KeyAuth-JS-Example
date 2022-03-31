@@ -24,6 +24,10 @@ console.log(` Number of online users: ${KeyAuth.app_data.numOnlineUsers}`)
 console.log(` Number of keys: ${KeyAuth.app_data.numKeys}`)
 console.log(` Application Version: ${KeyAuth.app_data.version}`)
 console.log(` Customer panel link: ${KeyAuth.app_data.customerPanelLInk}\n`)
+await KeyAuth.check();
+await KeyAuth.Sleep(1200);
+console.log(` Current Session Validation Status: ${KeyAuth.response.message}`);
+console.log(` Blacklisted: ${await KeyAuth.checkblacklist()}`);
 
 await rl.question("\n [1] Login\n [2] Register\n [3] Upgrade\n [4] License key only\n\n Choose option: ", async function(choice) {
     if (choice === "1") {
