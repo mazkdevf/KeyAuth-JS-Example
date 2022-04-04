@@ -63,6 +63,7 @@ async function init() {
 
     var json = response;
 
+    load_response_struct(json);
     if (json.success) {
         await load_app_data(json.appinfo);
         datastore.sessionid = json.sessionid;
