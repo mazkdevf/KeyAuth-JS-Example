@@ -14,10 +14,14 @@ KeyAuth.api(
     "1.0" // Application Version
 )
 
+await KeyAuth.cls();
 await KeyAuth.init();
 
-console.clear();
-KeyAuth.Title("KeyAuth JS Example - non official")
+if (!KeyAuth.response.success) {
+    KeyAuth.error("Status: " + KeyAuth.response.message)
+}
+
+KeyAuth.Title("KeyAuth JS Example - 1.1 API")
 console.log("\n Application Data:")
 console.log(` Number of users: ${KeyAuth.app_data.numUsers}`)
 console.log(` Number of online users: ${KeyAuth.app_data.numOnlineUsers}`)
