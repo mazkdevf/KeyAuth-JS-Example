@@ -538,13 +538,19 @@ async function req(post_data) {
         }
     })
     .then((res) => {
-        if (res.status == 429) {
-            error("Rate Limited! - KeyAuth");
-        }
-        
         returndata = res.data;
     }).catch((err) => {
-        console.error(err);
+        if (err.response.status == 429) {
+            error("Rate Limited! - KeyAuth");
+        }
+        else if (err.response.status == 502) {
+            error("502 Bad Gateway! - KeyAuth");
+        }
+        else {
+            if (err.response.status == 200) { } else {
+                error(`${err.response.status} ${err.response.statusText}! - KeyAuth`);
+            }
+        }
     });
     return returndata;
 }
@@ -558,9 +564,13 @@ function Title(title)
   );
 }
 
+function cls() {
+    console.clear();
+}
+
 function Sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export { Title, Sleep, response, error } //CUSTOM STUFF
+export { Title, Sleep, response, error, cls } //CUSTOM STUFF
 //#endregion
