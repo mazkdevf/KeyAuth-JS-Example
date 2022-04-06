@@ -331,6 +331,51 @@ async function getvar(varname) {
     }
 }
 
+
+async function SetJSON_var(VarName, data) {
+    checkinit();
+
+    if(!VarName || !data) {
+        try {
+            throw new Exception("SetJSON_var | User Variable name / Data is empty / null");
+        } catch (e) { }
+    }
+
+    var json = JSON.stringify(data);
+
+    await setvar(VarName, json);
+    if (!response.success) {
+        error(`\nStatus: ${KeyAuth.response.message}`)
+    } else {
+        return "Successfully set up JSON on User Variable";
+    }
+
+}
+
+export { SetJSON_var, GetJSON_var }
+
+async function GetJSON_var(result, value) {
+    if(!result || !value) {
+        try {
+            throw new Exception("GetJSON_var | Result / Value is empty / null");
+        } catch (e) { }
+    }
+
+    if (result === null) {
+        var lol = "Result is null!, Please check that this variable is existing...";
+        return lol;
+    } else {
+        var lol = JSON.parse(result);
+
+        if (value === "all") {
+            lol = lol;
+        } else {
+            lol = lol[value];
+        }
+        return lol;
+    }
+}
+
 async function ban() {
     checkinit();
 

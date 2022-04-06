@@ -93,7 +93,7 @@ await rl.question("\n [1] Login\n [2] Register\n [3] Upgrade\n [4] License key o
     //
     // --> set user variable 'discord' to 'test#0001' (if the user variable with name 'discord' doesn't exist, it'll be created) <--
 
-    KeyAuth.setvar("discord", "test#0000");
+    await KeyAuth.setvar("discord", "test#0000");
     if (!KeyAuth.response.success) {
         KeyAuth.error(`\nStatus: ${KeyAuth.response.message}`)
     } else {
@@ -103,7 +103,7 @@ await rl.question("\n [1] Login\n [2] Register\n [3] Upgrade\n [4] License key o
     //
     // --> display the user variable 'discord' <--
 
-    let uservar = KeyAuth.getvar("discord");
+    let uservar = await KeyAuth.getvar("discord");
     if (!KeyAuth.response.success) {
         KeyAuth.error(`\nStatus: ${KeyAuth.response.message}`)
     } else {
@@ -120,16 +120,16 @@ await rl.question("\n [1] Login\n [2] Register\n [3] Upgrade\n [4] License key o
 
     //
     // --> example to send normal request with no POST data <--
-    string resp = KeyAuthApp.webhook("7kR0UedlVI", "&type=black&ip=1.1.1.1&hwid=abc");
+    string resp = await KeyAuthApp.webhook("7kR0UedlVI", "&type=black&ip=1.1.1.1&hwid=abc");
     
     //
     // --> example to send form data <--
-    resp = KeyAuthApp.webhook("7kR0UedlVI", "", "type=init&name=test&ownerid=j9Gj0FTemM", "application/x-www-form-urlencoded");
+    resp = KeyAuth.webhook("7kR0UedlVI", "", "type=init&name=test&ownerid=j9Gj0FTemM", "application/x-www-form-urlencoded");
 
     //
     // --> example to send JSON <--
 
-    let resp = KeyAuth.webhook("HTeP5e21OC", "", "{\"content\": \"webhook message here\", \"embeds\": null}", "application/json") // if Discord webhook message successful, response will be empty
+    let resp = await KeyAuth.webhook("HTeP5e21OC", "", "{\"content\": \"webhook message here\", \"embeds\": null}", "application/json") // if Discord webhook message successful, response will be empty
     if (!KeyAuth.response.success) {
         KeyAuth.error(`\nStatus: ${KeyAuth.response.message}`)
     } else {
@@ -148,12 +148,30 @@ await rl.question("\n [1] Login\n [2] Register\n [3] Upgrade\n [4] License key o
 
     //
     // --> Application Variables <--
-    let appvar = KeyAuth.variable("test");
+    let appvar = await KeyAuth.variable("test");
     if (!KeyAuth.response.success) {
         KeyAuth.error(`\nStatus: ${KeyAuth.response.message}`)
     } else {
         console.log(`\n App variable data: ${appvar}`);
     }
+
+    //
+    // --> Set up JSON User Variables <--
+    const JSONArray = {
+        'version': '1.25',
+        'Profile_picURI': 'https://example.com/lol.png'
+    }
+
+    /// KeyAuth user variabl - change "JSON" to your user JSON Variable name
+    await KeyAuth.SetJSON_var("JSON", JSONArray); 
+
+
+    //
+    // --> Fetch JSON User Variable <--
+    // CHANGE "JSON" To your User JSON Variable Name ^^^^
+    var result = await KeyAuth.getvar("JSON");
+    var deserialized = KeyAuth.GetJSON_var(result, "all"); // (result ^^, and you can enter json value to get the json value out of req | or | put "all" to get full json array.)
+    console.log(desrialized);
 
 
 */
