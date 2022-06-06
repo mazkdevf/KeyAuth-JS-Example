@@ -17,13 +17,22 @@ Example Creator: mazk#9154 - 697678869167341639
 5: Run the Example - node index.js
 ```
 
-## **NPM Module Versions**
+## **NPM Module Versions ImportJS**
 ```
 "axios": "^0.26.0",
 "cli-select": "^1.1.2",
 "moment": "^2.29.1",
 "readline": "^1.3.0",
 "systeminformation": "^5.11.6"
+```
+
+## **NPM Module Versions CommonJS**
+```
+"axios": "^0.27.2",
+"moment": "^2.29.3",
+"querystring": "^0.2.1",
+"readline": "^1.3.0",
+"systeminformation": "^5.11.15"
 ```
 
 ## Showcase
