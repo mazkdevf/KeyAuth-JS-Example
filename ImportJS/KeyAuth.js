@@ -546,6 +546,10 @@ async function error(message) {
     return process.exit(0);
 }
 
+process.on('unhandledRejection', error => {
+	console.error('Unhandled promise rejection: ', error);
+});
+
 async function checkinit() {
     if (!intialized) {
         error("Please initzalize first")
