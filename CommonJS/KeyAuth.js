@@ -52,7 +52,7 @@ async function error(message) {
 }
 
 process.on('unhandledRejection', error => {
-	console.error('Unhandled promise rejection: ', error);
+  console.error('Unhandled promise rejection: ', error);
 });
 
 async function checkvalues() {
@@ -104,6 +104,12 @@ async function load_app_data(data) {
   app_data.numKeys = data.numKeys;
   app_data.version = data.version;
   app_data.customerPanelLInk = data.customerPanelLink;
+}
+
+async function load_channel_struct(data) {
+  response.success = data.success;
+  response.message = data.message;
+  response.messages = data.messages;
 }
 
 async function load_user_data(data) {
@@ -533,6 +539,55 @@ module.exports = {
       return null;
     }
   },
+
+  chatsend: async function (message, channel) {
+    checkinit();
+
+    const values_to_upload = {
+      type: "chatsend",
+      sessionid: datastore.sessionid,
+      name: datastore.name,
+      ownerid: datastore.ownerid,
+      message: message,
+      channel: channel,
+    };
+
+    const parameters = "?" + stringify(values_to_upload);
+
+    var response = await req(parameters);
+    var json = response;
+
+    load_response_struct(json);
+    if (json.success) {
+      return true;
+    } else {
+      return false;
+    }
+  },
+  chatget: async function (channel) {
+    checkinit();
+
+    const values_to_upload = {
+      type: "chatget",
+      sessionid: datastore.sessionid,
+      name: datastore.name,
+      ownerid: datastore.ownerid,
+      channel: channel,
+    };
+
+    const parameters = "?" + stringify(values_to_upload);
+
+    var response = await req(parameters);
+    var json = response;
+
+    load_channel_struct(json);
+    if (json.success) {
+      return true;
+    } else {
+      return false;
+    }
+  },
+
   log: async function (message) {
     checkinit();
 
@@ -565,4 +620,5 @@ module.exports = {
   app_data: app_data,
   sys: sys,
   datastore: datastore,
+  msg: msg,
 };

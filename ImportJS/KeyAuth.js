@@ -472,6 +472,55 @@ async function download(fileid) {
 
 }
 
+async function chatsend(message, channel) {
+    checkinit();
+
+    const values_to_upload = {
+        'type': 'chatsend',
+        'sessionid': datastore.sessionid,
+        'name': datastore.name,
+        'ownerid': datastore.ownerid,
+        'message': message,
+        'channel': channel,
+    }
+
+    const parameters = "?" + stringify(values_to_upload);
+
+    var response = await req(parameters);
+    var json = response;
+
+    load_response_struct(json);
+    if (json.success) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+async function chatget(channel) {
+    checkinit();
+
+    const values_to_upload = {
+        'type': 'chatget',
+        'sessionid': datastore.sessionid,
+        'name': datastore.name,
+        'ownerid': datastore.ownerid,
+        'channel': channel,
+    }
+
+    const parameters = "?" + stringify(values_to_upload);
+
+    var response = await req(parameters);
+    var json = response;
+
+    load_channel_struct(json);
+    if (json.success) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 async function log(message) {
     checkinit();
 
@@ -576,7 +625,7 @@ async function getUSER() {
 }
 //#endregion
 
-export { api, app_data, user_data, init, Login, Register, License, Upgrade, log, webhook, getvar, setvar, ban, download, variable, check, checkblacklist } //KEYAUTH API
+export { api, app_data, user_data, msg, init, Login, Register, License, Upgrade, log, webhook, getvar, setvar, ban, download, variable, check, checkblacklist, chatsend, chatget } //KEYAUTH API
 
 async function req(post_data) {
 

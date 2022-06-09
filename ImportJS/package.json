@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "mazk#9154",
+  "author": "mazkdevf <https://github.com/mazk5145>",
   "license": "ISC",
   "type": "module",
   "module": "commonjs",

@@ -88,97 +88,6 @@ await rl.question("\n [1] Login\n [2] Register\n [3] Upgrade\n [4] License key o
     }
 })
 
-//#region Extra Stuff
-/*
-    //
-    // --> set user variable 'discord' to 'test#0001' (if the user variable with name 'discord' doesn't exist, it'll be created) <--
-
-    await KeyAuth.setvar("discord", "test#0000");
-    if (!KeyAuth.response.success) {
-        KeyAuth.error(`\nStatus: ${KeyAuth.response.message}`)
-    } else {
-        console.log("\n Succesfully set user variable.")
-    }
-
-    //
-    // --> display the user variable 'discord' <--
-
-    let uservar = await KeyAuth.getvar("discord");
-    if (!KeyAuth.response.success) {
-        KeyAuth.error(`\nStatus: ${KeyAuth.response.message}`)
-    } else {
-        console.log(`\n User variable value: ${uservar}`)
-    }
-
-    // KeyAuth.log("User logged in") // log text to website and discord webhook (if set)
-
-
-    // let's say you want to send request to https://keyauth.com/api/seller/?sellerkey=f43795eb89d6060b74cdfc56978155ef&type=black&ip=1.1.1.1&hwid=abc
-    // but doing that from inside the loader is a bad idea as the link could get leaked.
-    // Instead, you should create a webhook with the https://keyauth.com/api/seller/?sellerkey=f43795eb89d6060b74cdfc56978155ef part as the URL
-    // then in your loader, put the rest of the link (the other paramaters) in your loader. And then it will send request from KeyAuth server and return response in string resp Credits to mak.
-
-    //
-    // --> example to send normal request with no POST data <--
-    string resp = await KeyAuthApp.webhook("7kR0UedlVI", "&type=black&ip=1.1.1.1&hwid=abc");
-    
-    //
-    // --> example to send form data <--
-    resp = KeyAuth.webhook("7kR0UedlVI", "", "type=init&name=test&ownerid=j9Gj0FTemM", "application/x-www-form-urlencoded");
-
-    //
-    // --> example to send JSON <--
-
-    let resp = await KeyAuth.webhook("HTeP5e21OC", "", "{\"content\": \"webhook message here\", \"embeds\": null}", "application/json") // if Discord webhook message successful, response will be empty
-    if (!KeyAuth.response.success) {
-        KeyAuth.error(`\nStatus: ${KeyAuth.response.message}`)
-    } else {
-        console.log(`\n Response recieved from webhook request: ${resp}`)
-    }
-
-    //
-    // --> FILEID Downloads <-- 
-    var result = await KeyAuth.download("763996");
-    if (!KeyAuth.response.success) {
-        KeyAuth.error(`\nStatus: ${KeyAuth.response.message}`)
-    } else {
-        console.log(result); // Show's Byte Array on console
-        // --> FILE Save <-- not yet
-    }
-
-    //
-    // --> Application Variables <--
-    let appvar = await KeyAuth.variable("test");
-    if (!KeyAuth.response.success) {
-        KeyAuth.error(`\nStatus: ${KeyAuth.response.message}`)
-    } else {
-        console.log(`\n App variable data: ${appvar}`);
-    }
-
-    //
-    // --> Set up JSON User Variables <--
-    const JSONArray = {
-        'version': '1.25',
-        'Profile_picURI': 'https://example.com/lol.png'
-    }
-
-    /// KeyAuth user variabl - change "JSON" to your user JSON Variable name
-    await KeyAuth.SetJSON_var("JSON", JSONArray); 
-
-
-    //
-    // --> Fetch JSON User Variable <--
-    // CHANGE "JSON" To your User JSON Variable Name ^^^^
-    var result = await KeyAuth.getvar("JSON");
-    var deserialized = KeyAuth.GetJSON_var(result, "all"); // (result ^^, and you can enter json value to get the json value out of req | or | put "all" to get full json array.)
-    console.log(desrialized);
-
-
-*/
-
-//#endregion
-
-
 async function loggedin() {
     console.log("\n Logged In!")
 
@@ -204,3 +113,121 @@ async function loggedin() {
     process.exit(0);
 
 }
+
+
+//#region Extra Stuff
+/*
+  //
+  //* --> set user variable 'discord' to 'test#0001' (if the user variable with name 'discord' doesn't exist, it'll be created) <--
+
+  await KeyAuth.setvar("discord", "test#0000");
+  if (!KeyAuth.response.success) {
+    KeyAuth.error(`\nStatus: ${KeyAuth.response.message}`)
+  } else {
+    console.log("\n Succesfully set user variable.")
+  }
+
+  //
+  //* --> display the user variable 'discord' <--
+
+  let uservar = await KeyAuth.getvar("discord");
+  if (!KeyAuth.response.success) {
+    KeyAuth.error(`\nStatus: ${KeyAuth.response.message}`)
+  } else {
+    console.log(`\n User variable value: ${uservar}`)
+  }
+
+  //* KeyAuth.log("User logged in") // log text to website and discord webhook (if set)
+
+  //* let's say you want to send request to https://keyauth.com/api/seller/?sellerkey=f43795eb89d6060b74cdfc56978155ef&type=black&ip=1.1.1.1&hwid=abc
+  //* but doing that from inside the loader is a bad idea as the link could get leaked.
+  //* Instead, you should create a webhook with the https://keyauth.com/api/seller/?sellerkey=f43795eb89d6060b74cdfc56978155ef part as the URL
+  //* then in your loader, put the rest of the link (the other paramaters) in your loader. And then it will send request from KeyAuth server and return response in string resp Credits to mak.
+
+  //
+  //* --> example to send normal request with no POST data <--
+  string resp = await KeyAuthApp.webhook("7kR0UedlVI", "&type=black&ip=1.1.1.1&hwid=abc");
+
+  //
+  //* --> example to send form data <--
+  resp = KeyAuth.webhook("7kR0UedlVI", "", "type=init&name=test&ownerid=j9Gj0FTemM", "application/x-www-form-urlencoded");
+  //
+  //* --> example to send JSON <--
+  let resp = await KeyAuth.webhook("HTeP5e21OC", "", "{\"content\": \"webhook message here\", \"embeds\": null}", "application/json") // if Discord webhook message successful, response will be empty
+  if (!KeyAuth.response.success) {
+     KeyAuth.error(`\nStatus: ${KeyAuth.response.message}`)
+  } else {
+     console.log(`\n Response recieved from webhook request: ${resp}`)
+  }
+
+  //
+  //* --> FILEID Downloads <--
+  var result = await KeyAuth.download("763996");
+  if (!KeyAuth.response.success) {
+    KeyAuth.error(`\nStatus: ${KeyAuth.response.message}`)
+  } else {
+    //* FILE save using inbuild FileSystem
+    try {
+      fs.writeFileSync(
+        pathtobuild,
+        Buffer.from(byteArray)
+      );
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  //
+  //* --> Application Variables <--
+  let appvar = await KeyAuth.variable("test");
+  if (!KeyAuth.response.success) {
+    KeyAuth.error(`\nStatus: ${KeyAuth.response.message}`)
+  } else {
+    console.log(`\n App variable data: ${appvar}`);
+  }
+
+  //
+  //* --> Set up JSON User Variables <--
+  const JSONArray = {
+    'version': '1.25',
+    'Profile_picURI': 'https://example.com/lol.png'
+  }
+
+  ///* KeyAuth user variabl - change "JSON" to your user JSON Variable name
+  await KeyAuth.SetJSON_var("JSON", JSONArray); 
+
+  //
+  //* --> Fetch JSON User Variable <--
+  //* CHANGE "JSON" To your User JSON Variable Name ^^^^
+  var result = await KeyAuth.getvar("JSON");
+  var deserialized = KeyAuth.GetJSON_var(result, "all"); // (result ^^, and you can enter json value to get the json value out of req | or | put "all" to get full json array.)
+  console.log(desrialized);
+
+  //
+  //* --> Send Message <--
+  await KeyAuth.chatsend(message, channel)
+  if(!KeyAuth.response.success) {
+    KeyAuth.error("Status: " + KeyAuth.response.message);
+  } else {
+    console.log("Message has been sent");
+  }
+
+  //
+  //* --> Get Channel Messages <--
+  await KeyAuth.chatget(channel)
+  if(!KeyAuth.response.success) {
+    KeyAuth.error("Status: " + KeyAuth.response.message);
+  } else {
+    KeyAuth.response.messages.forEach(async (m) => {
+      let timestampt = await formatTime(m.timestamp)
+      console.log(`\nFrom: ${m.author}\nContent: ${m.message}\nAt: ${timestamp}\n`)
+    })
+  }
+
+  //* Format unix timestampt to date & time using moment
+  async function formatTime(unix_timestamp) {
+    let newdate = moment.unix(unix_timestamp).format("HH:mm:ss - DD/MM/YYYY");
+    return newdate;
+  } 
+*/
+//#endregion

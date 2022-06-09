@@ -6,6 +6,7 @@ KeyAuth API Version: 1.1 - NON Encrypted
 Node-Version: v16.13.1
 NPM-Version: 8.3.1
 Example Creator: mazk#9154 - 697678869167341639
+CommonJS Converter: Displayray#2041 - https://github.com/Displayray
 ```
 
 ## **How to Install?**
@@ -41,7 +42,6 @@ Example Creator: mazk#9154 - 697678869167341639
 
 ## **Credits** 
 ```
-CommonJS Converter Thanks to: Displayray - https://github.com/Displayray
 KeyAuth - https://keyauth.win - https://keyauth.win/discord
 Node: https://nodejs.org/en/download/
 SystemInformation: https://www.npmjs.com/package/systeminformation
