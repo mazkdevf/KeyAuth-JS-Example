@@ -14,13 +14,12 @@
 If you are interested with Contributing on this project open an issue and we will discuss with it, or you can also open a pull request and we will review it. If your pull request is Good, and Perfect without any issues we will merge it.
 
 **To contribute to this project, follow these steps:**
-```md
 1. Fork this repository.
 2. Do your changes.
 3. Test your changes / code
 4. Create an Issue or Pull Request.
 5. And you are all done.
-```
+
 
 
 Also before Pull Requesting make sure you have Tested your code so that it works.
