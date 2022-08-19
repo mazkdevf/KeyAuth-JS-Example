@@ -1,48 +1,32 @@
-# KeyAuth-JS-Example
+# KeyAuth-JS-Example - Multi API Example's
 
-## **Example Details**
-```
-KeyAuth API Version: 1.1 - NON Encrypted
-Node-Version: v16.13.1
-NPM-Version: 8.3.1
-Example Creator: mazk#9154 - 697678869167341639
-CommonJS Converter: Displayray#2041 - https://github.com/Displayray
-```
+#### **KeyAuth 1.0 API EndPoint Example**
+**[Redirect to Example Project](./src/API1.0/)**
 
-## **How to Install?**
-```
-1: Install node.js
-2: Download this and put it on desktop
-3: Run CMD in that folder and put npm install
-4: Put your KeyAuth Details to 10-15 Lines - https://keyauth.win
-5: Run the Example - node index.js
-```
+#### **KeyAuth 1.1 API EndPoint Example**
+**[Redirect to Example Project](./src/API1.1/)**
 
-## **NPM Module Versions ImportJS**
-```
-"axios": "^0.26.0",
-"cli-select": "^1.1.2",
-"moment": "^2.29.1",
-"readline": "^1.3.0",
-"systeminformation": "^5.11.6"
-```
-
-## **NPM Module Versions CommonJS**
-```
-"axios": "^0.27.2",
-"moment": "^2.29.3",
-"querystring": "^0.2.1",
-"readline": "^1.3.0",
-"systeminformation": "^5.11.15"
-```
-
-## Showcase
-[![](https://i.imgur.com/NVGyLVM.png)](https://streamable.com/bo2m20)
+#### **KeyAuth 1.2 API EndPoint Example Coming Soon**
+**[Redirect to Example Project](./src/API1.2/)**
 
 
-## **Credits** 
-```
-KeyAuth - https://keyauth.win - https://keyauth.win/discord
-Node: https://nodejs.org/en/download/
-SystemInformation: https://www.npmjs.com/package/systeminformation
-```
+### **Contributing**
+If you are interested with Contributing on this project open an issue and we will discuss with it, or you can also open a pull request and we will review it. If your pull request is Good, and Perfect without any issues we will merge it.
+
+**To contribute to this project, follow these steps:**
+1. Fork this repository.
+2. Do your changes.
+3. Test your changes / code
+4. Create an Issue or Pull Request.
+5. And you are all done.
+
+
+
+Also before Pull Requesting make sure you have Tested your code so that it works.
+
+### **License**
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details
+
+- Do not Sell this Example Code to anyone, this is Open Source and Free to use example on **[KeyAuth](https://github.com/keyauth)**, This doesn't mean that you cannot sell your application, just go a head!
+
+- Requirements for using this example is to have a KeyAuth Account, and a KeyAuth Application. Also **[NodeJS](https://nodejs.org/en/download/)** is Required to run this. 

@@ -1,0 +1,33 @@
+{
+    "name": "keyauth-js-example",
+    "version": "2.5.0",
+    "description": "KeyAuth 1.1 Api JavaScript Example",
+    "main": "index.js",
+    "scripts": {
+      "dev": "nodemon index.js",
+      "start": "node index.js"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/mazkdevf/KeyAuth-JS-Example.git"
+    },
+    "keywords": [
+      "keyauth",
+      "js",
+      "example",
+      "1.1"
+    ],
+    "dependencies": {
+      "axios": "^0.27.2",
+      "child_process": "^1.0.2",
+      "moment": "^2.29.4",
+      "os": "^0.1.2"
+    },
+    "author": "mazkdevf <https://github.com/mazkdevf>",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/mazkdevf/KeyAuth-JS-Example/issues"
+    },
+    "homepage": "https://github.com/mazkdevf/KeyAuth-JS-Example#readme"
+  }
+  
