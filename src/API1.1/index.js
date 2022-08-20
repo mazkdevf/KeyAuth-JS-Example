@@ -15,7 +15,6 @@ const KeyAuthApp = new KeyAuth(
 (async () => {
     await KeyAuthApp.Initialize();
 
-    console.log(KeyAuthApp.app_data)
     console.log("\n Application Data:");
     console.log(` Number of users: ${KeyAuthApp.app_data.numUsers}`);
     console.log(` Number of online users: ${KeyAuthApp.app_data.numOnlineUsers}`);

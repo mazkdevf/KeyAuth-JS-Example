@@ -39,6 +39,10 @@ class KeyAuth {
 
         const Json = await make_request(post_data);
 
+        if (Json === "KeyAuth_Invalid") {
+            Misc.error("Invalid Application, please check your application details.");
+        }
+
         if (!Json.success || Json.success == false) {
             return resolve(false);
         }
@@ -48,7 +52,7 @@ class KeyAuth {
         this.sessionid = Json.sessionid;
         this.initialized = true;
 
-        resolve(Json);
+        resolve(true);
     });
 
     /**
