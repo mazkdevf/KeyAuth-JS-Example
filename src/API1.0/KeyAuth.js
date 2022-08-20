@@ -54,6 +54,11 @@ class KeyAuth {
         var response = await make_request(post_data)
         response = Encryption.decrypt(response, this.secret, init_iv)
 
+        if (response === "KeyAuth_Invalid") {
+            Misc.error("Invalid Application, please check your application details.");
+        }
+
+
         const Json = JSON.parse(response)
 
         await this.Load_Response_Struct(Json);
@@ -66,7 +71,7 @@ class KeyAuth {
         this.sessionid = Json.sessionid
         this.initialized = true
 
-        resolve(Json)
+        resolve(true);
     });
 
     /**
