@@ -429,8 +429,8 @@ class KeyAuth {
     this.check_initialize()
 
     const post_data = {
-      type: 'fetchOnline',
-      channel: Encryption.encrypt(ChannelName, this.EncKey, init_iv),
+      type: 'chatget',
+      channel: ChannelName,
       sessionid: this.sessionid,
       name: this.name,
       ownerid: this.ownerId
