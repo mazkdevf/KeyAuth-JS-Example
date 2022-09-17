@@ -83,7 +83,7 @@ class KeyAuth {
     const Json = await make_request(post_data)
 
     this.Load_Response_Struct(Json)
-    if (!Json.success || Json.success == false) {
+    if (Json.success) {
       this.Load_User_Data(Json.info)
       return resolve(Json.message)
     } else {
