@@ -1,7 +1,5 @@
 # KeyAuth-JS-Example - Multi API Example's
 
-[![DeepSource](https://deepsource.io/gh/mazkdevf/KeyAuth-JS-Example.svg/?label=active+issues&show_trend=true&token=g4lU4I62tG9n5HIXMlIvHCmS)](https://deepsource.io/gh/mazkdevf/KeyAuth-JS-Example/?ref=repository-badge)
-
 #### **KeyAuth 1.0 API EndPoint Example**
 **[Redirect to Example Project](./src/API1.0/)**
 
