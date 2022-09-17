@@ -6,7 +6,7 @@
 #### **KeyAuth 1.1 API EndPoint Example**
 **[Redirect to Example Project](./src/API1.1/)**
 
-#### **KeyAuth 1.2 API EndPoint Example Coming Soon**
+#### **KeyAuth 1.2 API --> NOT OUT YET <--**
 **[Redirect to Example Project](./src/API1.2/)**
 
 
