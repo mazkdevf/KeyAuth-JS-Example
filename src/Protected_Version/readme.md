@@ -1,0 +1,3 @@
+## KeyAuth JS Protected Example
+
+
