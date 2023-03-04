@@ -32,7 +32,12 @@ await KeyAuthApp.login("<USERNAME>", "<PASSWORD>");
 
 ###### **Register**
 ```js
-await KeyAuthApp.register("<USERNAME>", "<PASSWORD>", "<LICENSE/KEY>")
+await KeyAuthApp.register("<USERNAME>", "<PASSWORD>", "<LICENSE/KEY>", "<OPTIONAL EMAIL>")
+```
+
+###### **Forgot**
+```js
+await KeyAuthApp.forgot("<USERNAME>", "<EMAIL>");
 ```
 
 ###### **License Login**

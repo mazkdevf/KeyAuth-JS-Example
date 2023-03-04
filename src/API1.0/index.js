@@ -27,9 +27,9 @@ const KeyAuthApp = new KeyAuth(
         ` Current Session Validation Status: ${KeyAuthApp.response.message}`
     );
 
-    var username, password, license = "";
+    var username, password, license, email = "";
 
-    await CRL.question("\n [1] Login\n [2] Register\n [3] Upgrade\n [4] License key only\n\n Choose option: ", async (option) => {
+    await CRL.question("\n [1] Login\n [2] Register\n [3] Upgrade\n [4] License key only\n [5] Forgot password\n\n Choose option: ", async (option) => {
         option = await parseInt(option);
 
         switch (option) {
@@ -51,9 +51,12 @@ const KeyAuthApp = new KeyAuth(
                         password = pass;
                         await CRL.question(" Whats your License: ", async (lic) => {
                             license = lic;
-                            await KeyAuthApp.register(username, password, license);
-                            Dashboard();
-                            CRL.close();
+                            await CRL.question(" Whats your email (leave empty if none will be set) ", async (email_) => {
+                                email = email_;
+                                await KeyAuthApp.register(username, password, license, email);
+                                Dashboard();
+                                CRL.close();
+                            });
                         });
                     });
                 });
@@ -78,6 +81,17 @@ const KeyAuthApp = new KeyAuth(
                     CRL.close();
                 }
                 );
+                break;
+            case 5:
+                await CRL.question("\n Whats your username: ", async (username_) => {
+                    username = username_;
+                    await CRL.question("\n Whats your email: ", async (email_) => {
+                        email = email_;
+                        await KeyAuthApp.forgot(username, email);
+                        console.log(KeyAuthApp.response.message);
+                        process.exit(0);
+                    });
+                });
                 break;
             default:
                 console.log("Invalid option");

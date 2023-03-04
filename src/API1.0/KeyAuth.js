@@ -77,7 +77,7 @@ class KeyAuth {
      * @param {string} [password] - The password for the user
      * @param {string} [license] - The License Key for the sub
     **/
-  register = (user, password, license) => new Promise(async (resolve) => {
+  register = (user, password, license, email = "") => new Promise(async (resolve) => {
     this.check_initialize()
 
     let hwId
@@ -91,6 +91,7 @@ class KeyAuth {
       type: Buffer.from('register').toString('hex'),
       username: Encryption.encrypt(user, this.EncKey, init_iv),
       pass: Encryption.encrypt(password, this.EncKey, init_iv),
+      email: Encryption.encrypt(email, this.EncKey, init_iv),
       key: Encryption.encrypt(license, this.EncKey, init_iv),
       hwid: Encryption.encrypt(hwId, this.EncKey, init_iv),
       sessionid: Buffer.from(this.sessionid).toString('hex'),
@@ -111,6 +112,30 @@ class KeyAuth {
     } else {
       Misc.error(Json.message)
     }
+  })
+
+  forgot = (username, email) => new Promise(async (resolve) => {
+    this.check_initialize()
+
+    const init_iv = createHash('sha256').update(uuid().substring(0, 8)).digest('hex')
+
+    const post_data = {
+      type: Buffer.from('forgot').toString('hex'),
+      username: Encryption.encrypt(username, this.EncKey, init_iv),
+      email: Encryption.encrypt(email, this.EncKey, init_iv),
+      sessionid: Buffer.from(this.sessionid).toString('hex'),
+      name: Buffer.from(this.name).toString('hex'),
+      ownerid: Buffer.from(this.ownerId).toString('hex'),
+      init_iv
+    }
+
+    let response = await make_request(post_data)
+    response = Encryption.decrypt(response, this.EncKey, init_iv)
+
+    const Json = JSON.parse(response)
+
+    this.Load_Response_Struct(Json)
+    resolve(Json?.success ? true : false)
   })
 
   /**

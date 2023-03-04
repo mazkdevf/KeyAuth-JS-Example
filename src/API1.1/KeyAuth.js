@@ -61,7 +61,7 @@ class KeyAuth {
      * @param {string} [password] - The password for the user
      * @param {string} [license] - The License Key for the sub
     **/
-  register = (user, password, license) => new Promise(async (resolve) => {
+  register = (user, password, license, email = "") => new Promise(async (resolve) => {
     this.check_initialize()
 
     let hwId
@@ -73,6 +73,7 @@ class KeyAuth {
       type: 'register',
       username: user,
       pass: password,
+      email,
       key: license,
       hwid: hwId,
       sessionid: this.sessionid,
@@ -90,6 +91,23 @@ class KeyAuth {
       Misc.error(Json.message)
     }
   })
+
+  forgot = (username, email) => new Promise(async (resolve) => {
+    this.check_initialize()
+
+    const post_data = {
+      type: 'forgot',
+      username,
+      email,
+      sessionid: this.sessionid,
+      name: this.name,
+      ownerid: this.ownerId
+    }
+
+    const Json = await make_request(post_data)
+
+    this.Load_Response_Struct(Json)
+  });
 
   /**
      * Authenticates the user using their username and password
