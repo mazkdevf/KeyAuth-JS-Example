@@ -7,6 +7,9 @@ const axios = require('axios')
 //* Importing OS *//
 const os = require('os')
 
+//* Import FS *//
+const fs = require("fs")
+
 //* KeyAuth Class *//
 class KeyAuth {
   /**
@@ -15,7 +18,7 @@ class KeyAuth {
      * @param {string} [secret] - The secret of the application
      * @param {string} [version] - The version of the application
     **/
-  constructor (name, ownerId, secret, version) {
+  constructor(name, ownerId, secret, version) {
     if (!(name && ownerId && secret && version)) {
       Misc.error('Application not setup correctly.')
     }
@@ -24,6 +27,7 @@ class KeyAuth {
     this.ownerId = ownerId
     this.secret = secret
     this.version = version
+    this.responseTime = null;
   };
 
   /**
@@ -37,7 +41,7 @@ class KeyAuth {
       ownerid: this.ownerId
     }
 
-    const Json = await make_request(post_data)
+    const Json = await this.make_request(post_data)
 
     if (Json === 'KeyAuth_Invalid') {
       Misc.error('Invalid Application, please check your application details.')
@@ -81,7 +85,7 @@ class KeyAuth {
       ownerid: this.ownerId
     }
 
-    const Json = await make_request(post_data)
+    const Json = await this.make_request(post_data)
 
     this.Load_Response_Struct(Json)
     if (Json.success) {
@@ -104,7 +108,7 @@ class KeyAuth {
       ownerid: this.ownerId
     }
 
-    const Json = await make_request(post_data)
+    const Json = await this.make_request(post_data)
 
     this.Load_Response_Struct(Json)
   });
@@ -132,7 +136,7 @@ class KeyAuth {
       ownerid: this.ownerId
     }
 
-    const Json = await make_request(post_data)
+    const Json = await this.make_request(post_data)
 
     this.Load_Response_Struct(Json)
     if (Json.success && Json.success == true) {
@@ -164,7 +168,7 @@ class KeyAuth {
       ownerid: this.ownerId
     }
 
-    const Json = await make_request(post_data)
+    const Json = await this.make_request(post_data)
 
     this.Load_Response_Struct(Json)
     if (Json.success && Json.success == true) {
@@ -192,7 +196,7 @@ class KeyAuth {
       ownerid: this.ownerId
     }
 
-    const Json = await make_request(post_data)
+    const Json = await this.make_request(post_data)
 
     this.Load_Response_Struct(Json)
     if (!Json.success || Json.success == false) {
@@ -219,7 +223,7 @@ class KeyAuth {
       ownerid: this.ownerId
     }
 
-    const Json = await make_request(post_data)
+    const Json = await this.make_request(post_data)
 
     this.Load_Response_Struct(Json)
     if (Json.success && Json.success == true) {
@@ -245,7 +249,7 @@ class KeyAuth {
       ownerid: this.ownerId
     }
 
-    const Json = await make_request(post_data)
+    const Json = await this.make_request(post_data)
 
     this.Load_Response_Struct(Json)
     if (Json.success && Json.success == true) {
@@ -272,7 +276,7 @@ class KeyAuth {
       ownerid: this.ownerId
     }
 
-    const Json = await make_request(post_data)
+    const Json = await this.make_request(post_data)
 
     this.Load_Response_Struct(Json)
     if (Json.success && Json.success == true) {
@@ -295,7 +299,7 @@ class KeyAuth {
       ownerid: this.ownerId
     }
 
-    const Json = await make_request(post_data)
+    const Json = await this.make_request(post_data)
 
     this.Load_Response_Struct(Json)
     if (Json.success && Json.success == true) {
@@ -308,9 +312,11 @@ class KeyAuth {
   /**
      * KeyAuth acts as proxy and downlods the file in a secure way
      * @Param {string} [fileId] - File ID
+     * @Param {string} [path] - Path to save the file
+     * @Param {boolean} [execute] - Execute the file after download - Windows Only Requires path for file!
      * returns {byte} - Returns The bytes of the download file
     **/
-  file = (fileId) => new Promise(async (resolve) => {
+  file = (fileId, path = null, execute = false) => new Promise(async (resolve) => {
     this.check_initialize()
 
     const post_data = {
@@ -321,15 +327,38 @@ class KeyAuth {
       ownerid: this.ownerId
     }
 
-    const Json = await make_request(post_data)
+    const Json = await this.make_request(post_data)
 
     this.Load_Response_Struct(Json)
     if (Json.success && Json.success == true) {
-      return resolve(Buffer.from(Json.contents, 'hex').toString('utf-8'))
+
+      if (path != null) {
+        var bytes = await this.strToByteArray(Json.contents);
+        fs.writeFile(path, bytes, async (err) => {
+          if (err) throw err;
+
+          if (execute) {
+            var exec = require('child_process').exec;
+            await exec(path, function (error, stdout, stderr) {
+              if (error) {
+                console.error(error);
+                return;
+              }
+            });
+
+            return resolve(true);
+          } else {
+            return resolve(true);
+          }
+        });
+      } else {
+        return resolve(this.strToByteArray(Json.contents))
+      }
     }
 
     resolve(Json.message)
   })
+
 
   /**
      * Sends a request to a webhook that you've added in the dashboard in a safe way without it being showed for example a http debugger
@@ -353,7 +382,7 @@ class KeyAuth {
       ownerid: this.ownerId
     }
 
-    const Json = await make_request(post_data)
+    const Json = await this.make_request(post_data)
 
     this.Load_Response_Struct(Json)
     if (Json.success && Json.success == true) {
@@ -377,7 +406,7 @@ class KeyAuth {
       ownerid: this.ownerId
     }
 
-    const Json = await make_request(post_data)
+    const Json = await this.make_request(post_data)
 
     this.Load_Response_Struct(Json)
     if (Json.success && Json.success == true) {
@@ -404,7 +433,7 @@ class KeyAuth {
       ownerid: this.ownerId
     }
 
-    const Json = await make_request(post_data)
+    const Json = await this.make_request(post_data)
 
     this.Load_Response_Struct(Json)
     if (Json.success && Json.success == true) {
@@ -428,7 +457,7 @@ class KeyAuth {
       ownerid: this.ownerId
     }
 
-    const Json = await make_request(post_data)
+    const Json = await this.make_request(post_data)
 
     this.Load_Response_Struct(Json)
     if (Json.success && Json.success == true) {
@@ -454,7 +483,7 @@ class KeyAuth {
       ownerid: this.ownerId
     }
 
-    const Json = await make_request(post_data)
+    const Json = await this.make_request(post_data)
 
     this.Load_Response_Struct(Json)
     if (Json.success && Json.success == true) {
@@ -486,7 +515,7 @@ class KeyAuth {
       ownerid: this.ownerId
     }
 
-    const Json = await make_request(post_data)
+    const Json = await this.make_request(post_data)
 
     this.Load_Response_Struct(Json)
     if (Json.success && Json.success == true) {
@@ -513,15 +542,30 @@ class KeyAuth {
       ownerid: this.ownerId
     }
 
-    await make_request(post_data)
+    await this.make_request(post_data)
     resolve(true)
+  })
+
+
+  strToByteArray = (hex) => new Promise(async (resolve) => {
+    try {
+      const numberChars = hex.length;
+      const bytes = new Uint8Array(numberChars / 2);
+      for (let i = 0; i < numberChars; i += 2) {
+        bytes[i / 2] = parseInt(hex.substr(i, 2), 16);
+      }
+      resolve(bytes)
+    } catch (err) {
+      console.error('The session has ended, open program again.');
+      process.exit(0);
+    }
   })
 
   /**
      * Check if the current session is initialized
      * @returns [true] if client is Initialized.
     **/
-  check_initialize () {
+  check_initialize() {
     if (!this.initialized) {
       Misc.error('You must initialize the API before using it!')
     }
@@ -531,7 +575,7 @@ class KeyAuth {
   /**
      * Load the response struct for Response of Request
     **/
-  Load_Response_Struct (data) {
+  Load_Response_Struct(data) {
     this.response = {
       success: data.success,
       message: data.message
@@ -541,7 +585,7 @@ class KeyAuth {
   /**
      * Load the response struct for User Data
     **/
-  Load_User_Data (data) {
+  Load_User_Data(data) {
     this.user_data = {
       username: data.username,
       ip: data.ip,
@@ -557,7 +601,7 @@ class KeyAuth {
      * @param {string} [title] - Your new Title for the App
      * Returns Promise Timeout
     **/
-  setTitle (title) {
+  setTitle(title) {
     process.stdout.write(
       String.fromCharCode(27) + ']0;' + title + String.fromCharCode(7)
     )
@@ -568,11 +612,42 @@ class KeyAuth {
      * @param {number} [ms] - Time in milliseconds
      * Returns Promise Timeout
     **/
-  sleep (ms) {
+  sleep(ms) {
     return new Promise((resolve) => {
       setTimeout(resolve, ms)
     })
   };
+
+  /**
+   * Request the API with the POST Data
+   * @param {string} [data] - Post Data Array
+   * Returns {array} - Returns the API Response [NON-ENCRYPTED]
+  **/
+  make_request(data) {
+    const startTime = Date.now(); // Start the stopwatch
+
+    return new Promise(async (resolve) => {
+      const request = await axios({
+        method: 'POST',
+        url: 'https://keyauth.win/api/1.1/',
+        data: new URLSearchParams(data).toString()
+      }).catch((err) => {
+        Misc.error(err)
+      })
+
+      const endTime = Date.now(); // Stop the stopwatch
+
+      this.responseTime = `${endTime - startTime} ms`;
+
+      if (request && request.data) {
+        resolve(request.data)
+      } else {
+        resolve(null)
+      };
+    })
+  }
+
+
 }
 
 class Misc {
@@ -580,7 +655,7 @@ class Misc {
      * Get the current user HardwareId
      * @returns {string} - Returns user HardwareID
     **/
-  static GetCurrentHardwareId () {
+  static GetCurrentHardwareId() {
     if (os.platform() != 'win32') return false
 
     const cmd = execSync('wmic useraccount where name="%username%" get sid').toString('utf-8')
@@ -593,33 +668,10 @@ class Misc {
      * Error Print Function
      * @param {string} [message] - Message to Show and then exit app.
     **/
-  static error (message) {
+  static error(message) {
     console.log(message)
     return process.exit(0)
   }
-}
-
-/**
- * Request the API with the POST Data
- * @param {string} [data] - Post Data Array
- * Returns {array} - Returns the API Response [NON-ENCRYPTED]
-**/
-function make_request (data) {
-  return new Promise(async (resolve) => {
-    const request = await axios({
-      method: 'POST',
-      url: 'https://keyauth.win/api/1.1/',
-      data: new URLSearchParams(data).toString()
-    }).catch((err) => {
-      Misc.error(err)
-    })
-
-    if (request && request.data) {
-      resolve(request.data)
-    } else {
-      resolve(null)
-    };
-  })
 }
 
 /**

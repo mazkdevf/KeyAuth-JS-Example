@@ -1,16 +1,14 @@
 const KeyAuth = require('./KeyAuth');
 const readline = require("readline");
 const moment = require("moment");
-
 const CRL = readline.createInterface({ input: process.stdin, output: process.stdout });
 
 const KeyAuthApp = new KeyAuth(
-    '',      // Application Name
-    '',     // Application OwnerId
-    '',    // Application Secret
-    '1.0' // Application Version
+    "", // Application Name
+    "", // OwnerID
+    "", // Application Secret
+    "1.0" // Application Version
 );
-
 
 (async () => {
     await KeyAuthApp.Initialize();
@@ -25,6 +23,9 @@ const KeyAuthApp = new KeyAuth(
     await KeyAuthApp.sleep(1200);
     console.log(
         ` Current Session Validation Status: ${KeyAuthApp.response.message}`
+    );
+    console.log(
+        ` Current Session Validation took: ${KeyAuthApp.responseTime}`
     );
 
     var username, password, license, email = "";
