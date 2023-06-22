@@ -20,14 +20,6 @@ const KeyAuthApp = new KeyAuth(
     console.log(` Number of keys: ${KeyAuthApp.app_data.numKeys}`);
     console.log(` Application Version: ${KeyAuthApp.app_data.version}`);
     console.log(` Customer panel link: ${KeyAuthApp.app_data.customerPanelLink}\n`);
-    await KeyAuthApp.check();
-    await KeyAuthApp.sleep(1200);
-    console.log(
-        ` Current Session Validation Status: ${KeyAuthApp.response.message}`
-    );
-    console.log(
-        ` Current Session Validation took: ${KeyAuthApp.responseTime}`
-    );
 
     var username, password, license, email = "";
 
@@ -131,14 +123,9 @@ const KeyAuthApp = new KeyAuth(
                 }`
             );
         }
-
-        KeyAuthApp.check();
-        console.log(
-            ` Current Session Validation Status: ${KeyAuthApp.response.message}`
-        );
-
-        console.log("\n\n Closing in 10 seconds...");
-        await KeyAuthApp.sleep(10000);
+		
+        console.log("\n\n Closing in 5 seconds...");
+        await KeyAuthApp.sleep(5000);
         process.exit(0);
 
     }
