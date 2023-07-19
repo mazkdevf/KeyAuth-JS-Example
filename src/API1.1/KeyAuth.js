@@ -507,7 +507,7 @@ class KeyAuth {
     this.check_initialize()
 
     const post_data = {
-      type: 'fetchOnline',
+      type: 'chatsend',
       message: Message,
       channel: ChannelName,
       sessionid: this.sessionid,
