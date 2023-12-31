@@ -656,13 +656,18 @@ class Misc {
      * @returns {string} - Returns user HardwareID
     **/
   static GetCurrentHardwareId() {
-    if (os.platform() != 'win32') return false
+    let system_id = null;
 
-    const cmd = execSync('wmic useraccount where name="%username%" get sid').toString('utf-8')
+    if (os.platform() === 'win32') {
+        const cmd = execSync('wmic useraccount where name="%username%" get sid').toString('utf-8');
+        system_id = cmd.split('\n')[1].trim();
+    } else if (os.platform() === 'darwin') {
+        const cmd = execSync("ioreg -rd1 -c IOPlatformExpertDevice | awk '/IOPlatformUUID/ { print $3; }'").toString('utf-8');
+        system_id = cmd.trim();
+    }
 
-    const system_id = cmd.split('\n')[1].trim()
-    return system_id
-  };
+    return system_id;
+};
 
   /**
      * Error Print Function
